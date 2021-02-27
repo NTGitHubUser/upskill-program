@@ -28,7 +28,7 @@ public class HealthCheckController
 			HttpResponse<String> response = HttpClient.newBuilder()
 					.build()
 					.send(request, HttpResponse.BodyHandlers.ofString());
-			return "Service Google, status: " + response.statusCode();
+			return "Service Google, status (changed message): " + response.statusCode();
 		}
 		catch (URISyntaxException | IOException | InterruptedException ex)
 		{
