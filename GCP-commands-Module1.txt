@@ -1,0 +1,24 @@
+1. IN GCP
+gcloud artifacts repositories create docker-repo --repository-format=docker \
+--location=us-east1 --description="Docker repository"
+
+gcloud artifacts repositories list
+
+gcloud auth configure-docker us-east1-docker.pkg.dev
+
+
+2. PUSH DOCKER IMAGE TO ARTIFACTORY
+
+Genrate service key for service and add to config.json, so docker will be able to authorize durgin push image
+
+docker tag upskillproject us-east1-docker.pkg.dev/focused-history-304812/docker-repo/healhcheck-image:tag1
+
+docker login us-east1-docker.pkg.dev
+docker login -u _json_key --password-stdin https://us-east1-docker.pkg.dev < config.json
+
+docker push us-east1-docker.pkg.dev/focused-history-304812/docker-repo/healhcheck-image:tag1
+
+
+3. Run Docker Image in GCP
+ Go to CloudRun
+ Set up new CloudRun service (selec link to image in Artifact Registry during setup)
