@@ -6,5 +6,5 @@ RUN gradle build --no-daemon
 
 FROM openjdk:11
 ARG JAR_FILE=build/libs/\*.jar
-COPY --from=build /home/gradle/src/build/libs/*.jar upskillproject.jar
+COPY --from=build /home/gradle/src/build/libs111/*.jar upskillproject.jar
 ENTRYPOINT ["java","-jar","/upskillproject.jar"]
