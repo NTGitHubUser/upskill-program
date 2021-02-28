@@ -16,6 +16,7 @@ steps:
   - name: gradle:5.6.2-jdk11
     entrypoint: gradle
     args: ["test"]
+    id: Compile application and run tests
 
   - name: gradle:5.6.2-jdk11
     entrypoint: gradle
@@ -33,12 +34,14 @@ steps:
       - .
       - '-f'
       - Dockerfile
-    id: Build
+    id: Build Docker image
+
   - name: gcr.io/cloud-builders/docker
     args:
       - push
       - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
-    id: Push
+    id: Push DOcker image to Artifact registry
+
   - name: gcr.io/google.com/cloudsdktool/cloud-sdk
     args:
       - run
@@ -53,10 +56,18 @@ steps:
       - '--quiet'
     id: Deploy
     entrypoint: gcloud
+
 images:
   - '$_GCR_HOSTNAME/$PROJECT_ID/$REPO_NAME/$_SERVICE_NAME:$COMMIT_SHA'
 options:
   substitutionOption: ALLOW_LOOSE
+substitutions:
+  _TRIGGER_ID: e40bbe54-57c7-4fef-ac54-4f4d9b3f0208
+  _GCR_HOSTNAME: us.gcr.io
+  _PLATFORM: managed
+  _SERVICE_NAME: upskill-project
+  _DEPLOY_REGION: us-central1
+  _LABELS: gcb-trigger-id=e40bbe54-57c7-4fef-ac54-4f4d9b3f0208
 tags:
   - gcp-cloud-build-deploy-cloud-run
   - gcp-cloud-build-deploy-cloud-run-managed
