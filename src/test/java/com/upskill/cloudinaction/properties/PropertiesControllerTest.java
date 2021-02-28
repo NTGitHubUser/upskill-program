@@ -52,7 +52,7 @@ class PropertiesControllerTest
 		this.mockMvc
 				.perform(get("/properties/property/" + ABSENT_PROPERTY_KEY))
 				.andDo(print()).andExpect(status().isNotFound())
-				.andExpect(content().string(containsString("Test build")));
+				.andExpect(content().string(containsString(NOT_FOUND_PROPERTY_MESSAGE)));
 	}
 
 }

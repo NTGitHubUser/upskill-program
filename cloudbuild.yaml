@@ -4,15 +4,6 @@ steps:
     args: ["test"]
     id: Compile application and run tests
 
-  - name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |-
-        if test -f "/build/reports/tests/test/index.html"; then
-            gsutil cp /build/reports/tests/test/index.html gs://pipeline_test_reports/testReport-$BUILD_ID.html
-        fi
-
   - name: gradle:6.8.2-jdk11
     entrypoint: gradle
     args: [ "assemble" ]
