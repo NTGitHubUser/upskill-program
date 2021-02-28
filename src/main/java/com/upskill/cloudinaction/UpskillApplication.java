@@ -2,18 +2,15 @@ package com.upskill.cloudinaction;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 
 @SpringBootApplication
-@EnableWebMvc
-public class HealthCheckApplication
+public class UpskillApplication
 {
 
 	public static void main(String[] args)
 	{
-
-		SpringApplication.run(HealthCheckApplication.class, args);
+		SpringApplication.run(UpskillApplication.class, args);
 	}
 
 }
