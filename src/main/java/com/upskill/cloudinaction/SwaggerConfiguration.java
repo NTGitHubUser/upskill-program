@@ -13,11 +13,22 @@ import static springfox.documentation.builders.PathSelectors.regex;
 public class SwaggerConfiguration
 {
 	@Bean
-	public Docket api() {
+	public Docket propertiesApi() {
 		return new Docket(DocumentationType.SWAGGER_2)
+				.groupName("Properties")
 				.select()
-				.apis(RequestHandlerSelectors.any())
+				.apis(RequestHandlerSelectors.basePackage("com.upskill.cloudinaction.properties"))
 				.paths(regex("/properties.*"))
+				.build();
+	}
+
+	@Bean
+	public Docket commerceApi() {
+		return new Docket(DocumentationType.SWAGGER_2)
+				.groupName("Commerce")
+				.select()
+				.apis(RequestHandlerSelectors.basePackage("com.upskill.cloudinaction.commerce"))
+				.paths(regex("/commerce.*"))
 				.build();
 	}
 }
