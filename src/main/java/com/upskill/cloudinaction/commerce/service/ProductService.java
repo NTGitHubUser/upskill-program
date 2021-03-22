@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ProductService
 {
-	List<Product> getAllProducts();
+	List<Product> getAllProducts(String sortField, String sortOrder);
 
 	List<Product> getProductsForPriceRange(Double minPrice, Double maxPrice);
 

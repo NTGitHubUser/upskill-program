@@ -4,7 +4,9 @@ import com.google.common.collect.Lists;
 import com.upskill.cloudinaction.commerce.entity.Product;
 import com.upskill.cloudinaction.commerce.repository.ProductRepository;
 import com.upskill.cloudinaction.commerce.service.ProductService;
+import com.upskill.cloudinaction.commerce.util.SortUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +20,13 @@ public class DefaultProductService implements ProductService
 	private ProductRepository productRepository;
 
 	@Override
-	public List<Product> getAllProducts()
+	public List<Product> getAllProducts(String sortField, String sortOrder)
 	{
+		Optional<Sort> sortOption = SortUtils.buildSortOption(sortField, sortOrder);
+		if (sortOption.isPresent())
+		{
+			return Lists.newArrayList(productRepository.findAll(sortOption.get()));
+		}
 		return Lists.newArrayList(productRepository.findAll());
 	}
 
@@ -62,4 +69,5 @@ public class DefaultProductService implements ProductService
 	{
 		productRepository.deleteById(id);
 	}
+
 }

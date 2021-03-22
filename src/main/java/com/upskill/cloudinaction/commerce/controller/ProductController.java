@@ -27,9 +27,10 @@ public class ProductController
 	private ProductService productService;
 
 	@GetMapping("/all")
-	public ResponseEntity<List<Product>> getAllProducts()
+	public ResponseEntity<List<Product>> getAllProducts(@RequestParam(required = false) String sortField,
+			@RequestParam(required = false) String sortOrder)
 	{
-		return ResponseEntity.ok(productService.getAllProducts());
+		return ResponseEntity.ok(productService.getAllProducts(sortField, sortOrder));
 	}
 
 	@GetMapping("/priceRange")
